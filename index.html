@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Letbane billet</title>
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      margin:0;
+      padding:30px 10px;
+      color:#222;
+    }
+
+    .page { max-width: 400px; margin: 0 auto; }
+
+    .site-header { text-align:center; margin-bottom:10px; }
+    .site-header img { max-width:390px; height:auto; }
+
+    /* Ticket */
+    .ticket {
+      background: #fff;
+      border: 2px solid #e4e4e4;
+        border-top: none;       /* ← fjerner kun stregen øverst */
+
+      box-shadow: none;
+      margin:0 auto;
+  border-radius: 0 0 0 0; /* fjern evt. top afrunding også */
+
+      max-width: 100%; 
+    }
+    .ticket-top { padding:20px 16px; }
+
+    .status {
+      text-align:center;
+      font-weight:bold;
+      color:#000000;
+      margin-bottom:22px;
+      font-size:20px;
+        margin-bottom: 6px;   /* lidt mindre luft så teksten under passer */
+
+    }
+    .status-sub {
+  text-align: center;
+  color: #000;
+  font-size: 14px;      /* mindre skrift */
+  font-weight: normal;  /* ikke fed */
+  margin-bottom: 16px;  /* giver luft til resten */
+}
+    .row {
+      display:flex;
+      justify-content:space-between;
+      margin:8px 0;
+      font-size:20px;
+      font-weight: bold;
+    }
+    .divider { 
+      border-top:1px solid #ddd; 
+      margin:12px auto;
+      width: 100%; 
+    }
+
+    /* Input form */
+    .form {
+      background:#fff;
+      padding:15px;
+      margin-bottom:20px;
+      border-radius:6px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.05);
+    }
+    .form label { display:block; margin-bottom:6px; font-weight:bold; }
+    .form input {
+      padding:8px;
+      width:100%;
+      border:1px solid #ccc;
+      border-radius:4px;
+      font-size:14px;
+    }
+
+    /* billede mellem billet og knap */
+    .ticket-connector img {
+      width: 100%;
+      display: block;
+      margin: 0 auto;
+      border-radius: 0 0 8px 8px;
+    }
+
+    /* Videoer */
+    .header-video video,
+    .ticket-video video {
+      width: 100%;
+      display: block;
+      border-radius: 0;
+    }
+
+    /* Knappen */
+    .buy-btn { text-align:center; margin-top:20px; }
+    .buy-btn a {
+      display:inline-block;
+      background: #d94836;
+      color:white;
+      text-decoration:none;
+      padding:12px 20px;
+      border-radius:6px;
+      font-weight:bold;
+      width: 320px;       
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <img src="header.png" alt="Odense Letbane & Fynbus">
+    </header>
+
+    <!-- Ny video mellem header og billetten -->
+    <div class="header-video">
+      <video autoplay muted loop playsinline>
+        <source src="32.mp4" type="video/mp4">
+        Din browser understøtter ikke video-tagget.
+      </video>
+    </div>
+
+    <!-- Input form -->
+    <div class="form" id="formBox">
+      <label for="start">Vælg startdato og tid:</label>
+      <input type="datetime-local" id="start">
+    </div>
+
+    <!-- Billetten -->
+    <div class="ticket">
+      <div class="ticket-top">
+        <div class="status" id="status">-</div>
+        <div class="status-sub">Din billet er gyldig</div>
+        <div class="row"><span>1x UNG ODENSE (UNDER 26 ÅR)</span></div>
+        <div class="divider"></div>
+        <div class="row"><span>Tlf. nr.</span><span id="phone">+45 52633018</span></div>
+        <div class="row"><span>Gyldig fra</span><span id="validFrom">-</span></div>
+        <div class="row"><span>Gyldig til</span><span id="validTo">-</span></div>
+      </div>
+    </div>
+
+    <!-- forbindelsesbillede -->
+    <div class="ticket-connector">
+      <img src="hej.png" alt="Forbindelse">
+    </div>
+
+    <!-- Video mellem billede og knap -->
+    <div class="ticket-video">
+      <video autoplay muted loop playsinline>
+        <source src="12.mp4" type="video/mp4">
+        Din browser understøtter ikke video-tagget.
+      </video>
+    </div>
+
+    <!-- Knappen -->
+    <div class="buy-btn">
+      <a href="#">KØB FLERE BILLETTER</a>
+    </div>
+  </div>
+
+  <script>
+    function formatDate(d) {
+      const months = ["januar","februar","marts","april","maj","juni",
+                      "juli","august","september","oktober","november","december"];
+      let dag = d.getDate();
+      let måned = months[d.getMonth()];
+      let år = d.getFullYear();
+      let timer = String(d.getHours()).padStart(2,"0");
+      let min = String(d.getMinutes()).padStart(2,"0");
+      return `${dag} ${måned} ${år} ${timer}:${min}`;
+    }
+
+    const input = document.getElementById("start");
+    input.addEventListener("change", () => {
+      const startDate = new Date(input.value);
+      const endDate = new Date(startDate.getTime() + (90*60*1000)); // +1t30m
+
+      document.getElementById("validFrom").textContent = formatDate(startDate);
+      document.getElementById("validTo").textContent = formatDate(endDate);
+      document.getElementById("status").textContent = "1t:8min";
+
+      // skjul input-boksen
+      document.getElementById("formBox").style.display = "none";
+    });
+  </script>
+</body>
+</html>
