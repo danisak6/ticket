@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="format-detection" content="telephone=no">
+
   <title>Letbane billet</title>
   <style>
     body{
@@ -48,6 +50,7 @@
   font-weight: normal;  /* ikke fed */
   margin-bottom: 16px;  /* giver luft til resten */
 }
+  
     .row {
       display:flex;
       justify-content:space-between;
@@ -98,8 +101,8 @@
     .buy-btn { text-align:center; margin-top:20px; }
     .buy-btn a {
       display:inline-block;
-      background: #d94836;
-      color:white;
+      background: #ffffff;
+      color:rgb(5, 5, 5);
       text-decoration:none;
       padding:12px 20px;
       border-radius:6px;
@@ -107,6 +110,7 @@
       width: 320px;       
       text-align: center;
     }
+
   </style>
 </head>
 <body>
@@ -134,9 +138,10 @@
       <div class="ticket-top">
         <div class="status" id="status">-</div>
         <div class="status-sub">Din billet er gyldig</div>
-        <div class="row"><span>1x UNG ODENSE (UNDER 26 ÅR)</span></div>
+        <div class="row"><span>1x UNG ODENSE (UNDER 26 ÅR)</span> <span id="phone">10 kr.</span></div>
         <div class="divider"></div>
-        <div class="row"><span>Tlf. nr.</span><span id="phone">+45 52633018</span></div>
+        <div class="row"><span>Tlf. nr.</span><span id="phone"><span class="no-link">+45 52633018</span></span></div>
+
         <div class="row"><span>Gyldig fra</span><span id="validFrom">-</span></div>
         <div class="row"><span>Gyldig til</span><span id="validTo">-</span></div>
       </div>
